@@ -1,10 +1,31 @@
-import { WidgetItem } from "@/components";
 
-export default function RestTodosPage() {
+export const metadata = {
+ title: 'Listado de Todos',
+ description: 'Listado de Todos',
+};
+
+import prisma from "@/lib/prisma";
+import { TodosGrid } from "@/todos";
+
+
+export default async function RestTodosPage() {
+
+    const todos = await prisma.todo.findMany({ orderBy: {description: 'asc'}})
+
+    // useEffect(() => {
+    //   fetch('/api/todos')
+    //     .then( resp=> resp.json())
+    //     .then( console.log);
+    
+    // }, [])
+    
     return (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div >
+            {/* TODO: Formulario para agregar */}
 
-            <WidgetItem/>
+            <TodosGrid todos={ todos }/>
+
+           
 
         </div>
     );

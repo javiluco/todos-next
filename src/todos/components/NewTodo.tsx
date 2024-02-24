@@ -2,29 +2,32 @@
 
 import { FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
-import * as todosApi from '@/todos/helpers/todos'
+// import { useRouter } from "next/navigation";
+import { addTodo,deleteCompleted} from "../actions/todo-actions";
+// import * as todosApi from '@/todos/helpers/todos';
+
+
 
 
 export const NewTodo = () => { 
 
     const [description, setDescription] = useState('');
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const onSubmit =async( e:FormEvent )=>{
         e.preventDefault();
         if( description.trim().length === 0 ) return;
 
-        todosApi.createTodo( description );
+        await addTodo( description );
         setDescription(''); //Una vez realizado el ToDo vuelve a su valor inicial
-        router.refresh();//Para que se ponga inmediatamente el to do en la pág
+        //router.refresh();//Para que se ponga inmediatamente el to do en la pág
     }
 
-    const deleteCompleted =async()=>{
-        await todosApi.deleteCompletedTodos();
-        router.refresh();
-    }
+    // const deleteCompleted =async()=>{
+    //     // await todosApi.deleteCompletedTodos();
+    //     // router.refresh();
+    // }
 
   return (
     <form onSubmit={ onSubmit }  className='flex w-full'>
